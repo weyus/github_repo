@@ -1,4 +1,4 @@
-defmodule GithubRepoWeb.PageController do
+defmodule GithubRepoWeb.RepositoryController do
   use GithubRepoWeb, :controller
 
   def index(conn, _params) do
