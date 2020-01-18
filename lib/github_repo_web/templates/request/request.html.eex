@@ -1,0 +1,7 @@
+<div id="content-container">
+  <%= form_for @conn, Routes.repository_path(@conn, :index), [method: :get, id: "search-form"], fn f -> %>
+    <%= label f, :organization, "Github organization" %>
+    <%= text_input f, :organization %>
+    <%= submit "Search" %>
+  <% end %>
+</div>

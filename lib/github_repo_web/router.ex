@@ -16,7 +16,7 @@ defmodule GithubRepoWeb.Router do
   scope "/", GithubRepoWeb do
     pipe_through :browser
 
-    get "/", RequestController, :repo_request
+    get "/", RequestController, :request
     resources "/repositories", RepositoryController, only: [:index]
   end
 

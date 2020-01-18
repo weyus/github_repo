@@ -1,7 +1,12 @@
 defmodule GithubRepoWeb.RepositoryController do
   use GithubRepoWeb, :controller
 
-  def index(conn, _params) do
-    render(conn, "index.html")
+  import GithubRepo.GithubApiClient
+
+  def index(conn, %{"organization" => organization}) do
+    case retrieve_repos_for(organization) do
+      {:ok, repo_array} -> render(conn, "index.html", %{organization: organization, repo_array: repo_array})
+      {:error, error_text} -> render(conn, "index.html")
+    end
   end
 end
