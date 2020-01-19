@@ -1,8 +1,8 @@
 defmodule GithubRepo.GithubApiClient do
-  # require [HTTPoison, Poison]
+  import GithubRepo.Constants
 
   def retrieve_repos_for(org) do
-    url = "#{constants()[:GITHUB_URL]}/orgs/#{org}/repos"
+    url = "#{urls[:GITHUB_API_URL]}/orgs/#{org}/repos"
 
     case fetch(url) do
       {:ok, body} -> process_results(body)
@@ -10,11 +10,7 @@ defmodule GithubRepo.GithubApiClient do
     end
   end
 
-  defp constants do
-    %{GITHUB_URL: "https://api.github.com"}
-  end
-
-  #Maybe pull this out somewhere and reuse it in future so allow for arbitrary headers to be passed in.
+  #Maybe pull this out somewhere and reuse it in future.
   defp fetch(url, headers \\ default_headers()) do
     case HTTPoison.get(url, headers) do
       {:ok, %{body: body}} -> {:ok, body}

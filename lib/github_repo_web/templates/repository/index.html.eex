@@ -1,6 +1,6 @@
 <p>The public Github repositories of the <%= @organization %> organization are:</p>
 <ul>
-<%= for repo_name <- get_names(@repo_array) do %>
-      <li><%= repo_name %></li>
+<%= for {name, href} <- get_names_and_links(@organization, @repo_array) do %>
+      <li><a href="<%= href %>"><%= name %></a></li>
 <%  end %>
 </ul>
