@@ -5,6 +5,7 @@ defmodule GithubRepoWeb.RepositoryController do
 
   def index(conn, %{"organization" => organization}) do
     case retrieve_repos_for(organization) do
+      {:message, message} -> render(conn, "index.html", %{organization: organization, message: message})
       {:ok, repo_array} -> render(conn, "index.html", %{organization: organization, repo_array: repo_array})
       {:error, error_text} -> render(conn, "index.html")
     end

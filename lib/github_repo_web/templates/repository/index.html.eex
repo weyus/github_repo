@@ -1,6 +1,12 @@
-<p>The public Github repositories of the <%= @organization %> organization are:</p>
-<ul>
-<%= for {name, href} <- get_names_and_links(@organization, @repo_array) do %>
-      <li><a href="<%= href %>"><%= name %></a></li>
-<%  end %>
-</ul>
+<%= if Map.has_key?(assigns, :message) do %>
+  <p>
+    <%= decode_message(@organization, @message) %>
+  </p>
+<% else %>
+  <p>The public Github repositories of the <%= @organization %> organization are:</p>
+  <ul>
+    <%= for {name, href} <- get_names_and_links(@organization, @repo_array) do %>
+          <li><a href="<%= href %>"><%= name %></a></li>
+    <%  end %>
+  </ul>
+<% end %>

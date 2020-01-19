@@ -2,7 +2,7 @@ defmodule GithubRepo.GithubApiClient do
   import GithubRepo.Constants
 
   def retrieve_repos_for(org) do
-    url = "#{urls[:GITHUB_API_URL]}/orgs/#{org}/repos"
+    url = "#{urls()[:GITHUB_API_URL]}/orgs/#{org}/repos"
 
     case fetch(url) do
       {:ok, body} -> process_results(body)
@@ -27,6 +27,7 @@ defmodule GithubRepo.GithubApiClient do
     body
     |> Poison.decode()
     |> case do
+         {:ok, %{"message" => message}} -> {:message, message}
          {:ok, repo_array} ->
            {:ok, repo_array
                  |> Enum.map(fn(repo_data) -> Map.take(repo_data, ["name", "html_url"]) end)}
